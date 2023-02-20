@@ -22,7 +22,7 @@ isPalindrome('Лёша на полке клопа нашёл ');
 const extractNumbersFromString = (string) => {
 
   if (typeof(string) === 'number') {
-    return string;
+    return Math.abs(string);
   }
   const matches = string.match(/\d+/g);
   let allNumbersString = '';
@@ -40,7 +40,7 @@ extractNumbersFromString('1 кефир, 0.5 батона');
 // Функция 3, вариант 2
 const getPositiveInteger = (string) => {
   if (typeof(string) === 'number') {
-    return string;
+    return Math.abs(string);
   }
   let newString = '';
   const stringWithoutSpaces = string.replaceAll(' ', '');
