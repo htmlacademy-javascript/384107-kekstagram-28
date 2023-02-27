@@ -1,28 +1,5 @@
 const ARRAY_LENGTH = 25;
 
-const VALUE = {
-  photoId: {
-    min: 1,
-    max: 25
-  },
-  url: {
-    min: 1,
-    max: 25
-  },
-  likes: {
-    min: 15,
-    max: 200
-  },
-  avatar: {
-    min: 1,
-    max: 6
-  },
-  comment: {
-    min: 1,
-    max: 2
-  }
-};
-
 const DESCRIPTIONS = [
   'Тысячное фото моего любимого котика',
   'Зажигаем!',
@@ -49,6 +26,29 @@ const MESSAGES = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
+const values = {
+  photoId: {
+    min: 1,
+    max: 25
+  },
+  url: {
+    min: 1,
+    max: 25
+  },
+  likes: {
+    min: 15,
+    max: 200
+  },
+  avatar: {
+    min: 1,
+    max: 6
+  },
+  comment: {
+    min: 1,
+    max: 2
+  }
+};
+
 //Возвращает случайное целое число
 const getRandomInteger = (firstValue, secondValue) => {
   const min = Math.ceil(Math.min(Math.abs(firstValue), Math.abs(secondValue)));
@@ -74,8 +74,8 @@ const getUniqNumberFromRange = (min, max) => {
   };
 };
 
-const getUniqPhotoId = getUniqNumberFromRange(VALUE.photoId.min, VALUE.photoId.max);
-const getUniqUrl = getUniqNumberFromRange(VALUE.url.min, VALUE.url.max);
+const getUniqPhotoId = getUniqNumberFromRange(values.photoId.min, values.photoId.max);
+const getUniqUrl = getUniqNumberFromRange(values.url.min, values.url.max);
 
 //Генерирует неповторяющееся число от единицы и до бесконечности
 const createNumberGenerator = () => {
@@ -92,34 +92,26 @@ const uniqValue = createNumberGenerator();
 //Возвращает случайный элемент из массива
 const getRandomElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
-//Находит количество комментов — один или два
-const getCommentMessage = () => {
-  const commentCount = getRandomInteger(VALUE.comment.min, VALUE.comment.max);
-  const comment = getRandomElement(MESSAGES);
-  return commentCount === VALUE.comment.max
-    ? comment.concat(' ', getRandomElement(MESSAGES))
-    : comment;
+//Создаёт комментарий
+const createComment = () => ({
+  id: uniqValue(),
+  avatar: `img/avatar-${getRandomInteger(values.avatar.min, values.avatar.max)}.svg`,
+  message: getRandomElement(MESSAGES),
+  name: getRandomElement(USERS_NAMES)
+});
+
+const createComments = () => {
+  const commentsArray = Array.from({length: getRandomInteger(values.comment.min, values.comment.max)}, createComment);
+  return commentsArray;
 };
 
-const createMockData = () => {
-  const url = 'photos/';
-  const avatarUrl = '';
+const createMockPhotos = () => ({
+  id: getUniqPhotoId(),
+  url: `url/${getUniqUrl()}.jpg`,
+  description: getRandomElement(DESCRIPTIONS),
+  likes: getRandomInteger(values.likes.min, values.likes.max),
+  comments: createComments()
+});
 
-  return {
-    id: getUniqPhotoId(),
-    url: url.concat(getUniqUrl(), '.jpg'),
-    description: getRandomElement(DESCRIPTIONS),
-    likes: getRandomInteger(VALUE.likes.min, VALUE.likes.max),
-    comments:
-      {
-        id: uniqValue(),
-        avatar: avatarUrl.concat('img/avatar-', getRandomInteger(VALUE.avatar.min, VALUE.avatar.max), '.svg'),
-        message: getCommentMessage(),
-        name: getRandomElement(USERS_NAMES)
-      }
-  };
-};
-
-const getData = () => Array.from({length: ARRAY_LENGTH}, createMockData);
-getData();
-
+const createPhotos = () => Array.from({length: ARRAY_LENGTH}, createMockPhotos);
+createPhotos();
