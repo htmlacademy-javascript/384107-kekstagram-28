@@ -120,4 +120,6 @@ const createMockData = () => {
   };
 };
 
-Array.from({length: ARRAY_LENGTH}, createMockData);
+const getData = () => Array.from({length: ARRAY_LENGTH}, createMockData);
+getData();
+
