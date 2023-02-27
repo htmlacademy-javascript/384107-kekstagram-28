@@ -1,6 +1,6 @@
 const ARRAY_LENGTH = 25;
 
-const VALUES = {
+const VALUE = {
   photoId: {
     min: 1,
     max: 25
@@ -74,8 +74,8 @@ const getUniqNumberFromRange = (min, max) => {
   };
 };
 
-const getUniqPhotoId = getUniqNumberFromRange(VALUES.photoId.min, VALUES.photoId.max);
-const getUniqUrl = getUniqNumberFromRange(VALUES.url.min, VALUES.url.max);
+const getUniqPhotoId = getUniqNumberFromRange(VALUE.photoId.min, VALUE.photoId.max);
+const getUniqUrl = getUniqNumberFromRange(VALUE.url.min, VALUE.url.max);
 
 //Генерирует неповторяющееся число от единицы и до бесконечности
 const createNumberGenerator = () => {
@@ -92,17 +92,16 @@ const uniqValue = createNumberGenerator();
 //Возвращает случайный элемент из массива
 const getRandomElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
+//Находит количество комментов — один или два
+const getCommentMessage = () => {
+  const commentCount = getRandomInteger(VALUE.comment.min, VALUE.comment.max);
+  const comment = getRandomElement(MESSAGES);
+  return commentCount === VALUE.comment.max
+    ? comment.concat(' ', getRandomElement(MESSAGES))
+    : comment;
+};
 
 const createMockData = () => {
-  //Находит количество комментов — один или два
-  const getCommentCount = () => {
-    const commentCount = getRandomInteger(VALUES.comment.min, VALUES.comment.max);
-    const comment = getRandomElement(MESSAGES);
-    return commentCount === VALUES.comment.max
-      ? comment.concat(' ', getRandomElement(MESSAGES))
-      : comment;
-  };
-
   const url = 'photos/';
   const avatarUrl = '';
 
@@ -110,12 +109,12 @@ const createMockData = () => {
     id: getUniqPhotoId(),
     url: url.concat(getUniqUrl(), '.jpg'),
     description: getRandomElement(DESCRIPTIONS),
-    likes: getRandomInteger(VALUES.likes.min, VALUES.likes.max),
+    likes: getRandomInteger(VALUE.likes.min, VALUE.likes.max),
     comments:
       {
         id: uniqValue(),
-        avatar: avatarUrl.concat('img/avatar-', getRandomInteger(VALUES.avatar.min, VALUES.avatar.max), '.svg'),
-        message: getCommentCount(),
+        avatar: avatarUrl.concat('img/avatar-', getRandomInteger(VALUE.avatar.min, VALUE.avatar.max), '.svg'),
+        message: getCommentMessage(),
         name: getRandomElement(USERS_NAMES)
       }
   };
