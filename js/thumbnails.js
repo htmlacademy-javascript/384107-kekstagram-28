@@ -1,21 +1,28 @@
-import {createPhotos} from './data.js';
+import { createPhotos } from './data.js';
 
 const picturesList = document.querySelector('.pictures');
 const picture = document.querySelector('#picture')
   .content
   .querySelector('.picture');
-const createThumbnails = createPhotos();
-const similarThumbnails = document.createDocumentFragment();
+const photos = createPhotos();
 
-createThumbnails.forEach((element) => {
+
+const createElement = ({url, comments, likes}) => {
   const pictureClone = picture.cloneNode(true);
-  const img = pictureClone.querySelector('.picture__img');
-  img.src = element.url;
-  const comment = pictureClone.querySelector('.picture__comments');
-  comment.textContent = element.comments.length;
-  const likes = pictureClone.querySelector('.picture__likes');
-  likes.textContent = element.likes;
-  similarThumbnails.append(pictureClone);
-});
+  pictureClone.querySelector('.picture__img').src = url;
+  pictureClone.querySelector('.picture__comments').textContent = comments.length;
+  pictureClone.querySelector('.picture__likes').textContent = likes;
+  return pictureClone;
+};
 
-picturesList.append(similarThumbnails);
+const renderThumbnails = () => {
+  const similarThumbnails = document.createDocumentFragment();
+  photos.forEach((element) => {
+    const thumbnail = createElement(element);
+    similarThumbnails.append(thumbnail);
+  });
+
+  picturesList.append(similarThumbnails);
+};
+
+export {renderThumbnails};
