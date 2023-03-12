@@ -73,7 +73,7 @@ const createComments = () => {
 
 const createMockPhotos = () => ({
   id: getUniqPhotoId(),
-  url: `url/${getUniqUrl()}.jpg`,
+  url: `photos/${getUniqUrl()}.jpg`,
   description: getRandomElement(DESCRIPTIONS),
   likes: getRandomInteger(values.likes.min, values.likes.max),
   comments: createComments()
