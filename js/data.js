@@ -81,4 +81,4 @@ const createMockPhotos = () => ({
 
 const createPhotos = () => Array.from({length: ARRAY_LENGTH}, createMockPhotos);
 
-export {createPhotos};
+export { createPhotos };
