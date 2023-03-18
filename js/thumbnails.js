@@ -1,5 +1,3 @@
-// import { photos } from './gallery.js';
-
 const picturesList = document.querySelector('.pictures');
 const picture = document.querySelector('#picture')
   .content
