@@ -1,4 +1,4 @@
-import { photos } from './gallery.js';
+// import { photos } from './gallery.js';
 
 const picturesList = document.querySelector('.pictures');
 const picture = document.querySelector('#picture')
@@ -14,7 +14,7 @@ const createElement = ({url, comments, likes, id}) => {
   return pictureClone;
 };
 
-const renderThumbnails = () => {
+const renderThumbnails = (photos) => {
   const similarThumbnails = document.createDocumentFragment();
   photos.forEach((element) => {
     const thumbnail = createElement(element);

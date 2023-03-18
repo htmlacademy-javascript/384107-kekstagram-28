@@ -4,6 +4,9 @@ const commentTemplate = document.querySelector('#comment')
   .content
   .querySelector('.social__comments');
 
+const image = fullPictureContainer.querySelector('img');
+const likesCount = fullPictureContainer.querySelector('.likes-count');
+
 const fillComment = ({avatar, message, name}) => {
   const commentClone = commentTemplate.cloneNode(true);
   const commentImage = commentClone.querySelector('.social__picture');
@@ -16,23 +19,13 @@ const fillComment = ({avatar, message, name}) => {
   return commentClone;
 };
 
-const renderComments = (elements, list) => {
-  elements.forEach((element) => {
-    const comment = fillComment(element);
-    list.append(comment);
-  });
-};
+const renderComments = (comments) => commentsList.append(...comments.map(fillComment));
 
 const renderFullSizePhoto = ({url, likes, comments}) => {
-  const image = fullPictureContainer.querySelector('img');
   image.src = url;
-
-  const likesCount = fullPictureContainer.querySelector('.likes-count');
   likesCount.textContent = likes;
-
   commentsList.innerHTML = '';
   renderComments(comments, commentsList);
-
 };
 
 export { renderFullSizePhoto };

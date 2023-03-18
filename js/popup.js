@@ -12,7 +12,6 @@ const showPopup = () => {
 
 const closePopup = () => {
   bigPictureContainer.classList.add('hidden');
-  commentsCount.classList.remove('hidden');
   bodyElement.classList.remove('modal-open');
 };
 
