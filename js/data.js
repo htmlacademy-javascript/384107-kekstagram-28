@@ -52,7 +52,7 @@ const values = {
   },
   comment: {
     min: 1,
-    max: 2
+    max: 17
   }
 };
 
