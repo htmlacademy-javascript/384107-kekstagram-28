@@ -1,12 +1,10 @@
 const bodyElement = document.querySelector('body');
 const bigPictureContainer = bodyElement.querySelector('.big-picture');
-const commentsCount = bigPictureContainer.querySelector('.social__comment-count');
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
 const showPopup = () => {
   bigPictureContainer.classList.remove('hidden');
-  commentsCount.classList.add('hidden');
   bodyElement.classList.add('modal-open');
 };
 
