@@ -1,11 +1,9 @@
-//Возвращает случайное целое число
 const getRandomInteger = (firstValue, secondValue) => {
   const min = Math.ceil(Math.min(Math.abs(firstValue), Math.abs(secondValue)));
   const max = Math.floor(Math.max(Math.abs(firstValue), Math.abs(secondValue)));
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
-//Возвращает случайное уникальное число из диапазона чисел
 const getUniqNumberFromRange = (min, max) => {
   const previousValues = [];
   return function() {
