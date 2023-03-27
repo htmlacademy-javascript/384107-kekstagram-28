@@ -1,3 +1,5 @@
+import { showPopup } from './popup.js';
+
 const picturesList = document.querySelector('.pictures');
 const picture = document.querySelector('#picture')
   .content
@@ -9,6 +11,11 @@ const createElement = ({url, comments, likes, id}) => {
   pictureClone.querySelector('.picture__img').dataset.id = id;
   pictureClone.querySelector('.picture__comments').textContent = comments.length;
   pictureClone.querySelector('.picture__likes').textContent = likes;
+
+  pictureClone.addEventListener('click', () => {
+    showPopup(url, likes, comments);
+  });
+
   return pictureClone;
 };
 

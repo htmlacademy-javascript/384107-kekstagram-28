@@ -1408,3 +1408,8 @@ main {
 .hidden {
   display: none;
 }
+
+.pristine-error {
+  color: rgb(246, 38, 38);
+  text-transform: none;
+}

@@ -9,12 +9,11 @@ const commentCount = fullPictureContainer.querySelector('.social__comment-count'
 const commentsLoader = fullPictureContainer.querySelector('.comments-loader');
 const shownCommentsCount = commentCount.querySelector('.comments-shown');
 const allCommentsCount = commentCount.querySelector('.comments-count');
+const image = fullPictureContainer.querySelector('img');
+const likesCount = fullPictureContainer.querySelector('.likes-count');
 
 let moduleComments = [];
 let shownComments = 0;
-
-const image = fullPictureContainer.querySelector('img');
-const likesCount = fullPictureContainer.querySelector('.likes-count');
 
 const fillComment = ({avatar, message, name}) => {
   const commentClone = commentTemplate.cloneNode(true);
@@ -33,7 +32,6 @@ const renderComments = (comments) => {
   commentsList.append(...comments.map(fillComment));
 };
 
-
 const renderFiveComments = () => {
   shownComments += COMMENT_PORTION;
 
@@ -51,7 +49,7 @@ const renderFiveComments = () => {
   allCommentsCount.textContent = moduleComments.length;
 };
 
-const renderFullSizePhoto = ({url, likes, comments}) => {
+const renderFullPhoto = (url, likes, comments) => {
   shownComments = 0;
   image.src = url;
   likesCount.textContent = likes;
@@ -61,4 +59,4 @@ const renderFullSizePhoto = ({url, likes, comments}) => {
 
 commentsLoader.addEventListener('click', renderFiveComments);
 
-export { renderFullSizePhoto };
+export { renderFullPhoto };
