@@ -57,7 +57,6 @@ const Effects = {
 
 const defaultEffect = Effects.none;
 let chosenEffect = Effects.none;
-
 const sliderContainer = document.querySelector('.img-upload__effect-level');
 const sliderElement = document.querySelector('.effect-level__slider');
 const image = document.querySelector('.img-upload__preview img');
@@ -102,8 +101,11 @@ effectButtonsList.addEventListener('click',(evt) => {
 
 const onSliderChange = () => {
   const sliderValue = sliderElement.noUiSlider.get();
-
-  image.style.filter = `${chosenEffect.style}(${sliderValue}${chosenEffect.unit})`;
+  if(chosenEffect === defaultEffect) {
+    image.style.filter = 'none';
+  } else {
+    image.style.filter = `${chosenEffect.style}(${sliderValue}${chosenEffect.unit})`;
+  }
   effectsValue.value = sliderValue;
 };
 
