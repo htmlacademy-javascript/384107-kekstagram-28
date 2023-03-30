@@ -1,4 +1,6 @@
 import { isEscapeKey, stopEventPropagation } from './util.js';
+import { removeScale } from './scale.js';
+import { removeEffects } from './slider.js';
 
 const HASHTAG_REGULAR_EXPRESS = /^#[a-zа-яё0-9]{1,19}$/i;
 const MAX_HASHTAGS_COUNT = 5;
@@ -45,6 +47,8 @@ const closeImgUploadOverlay = () => {
   document.body.classList.remove('modal-open');
   form.reset();
   pristine.reset();
+  removeScale();
+  removeEffects();
 };
 
 const onDocumentKeydown = (evt) => {
