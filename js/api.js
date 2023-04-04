@@ -1,40 +1,27 @@
 
 const GET_FORM_URL = 'https://28.javascript.pages.academy/kekstagram/data';
-const SEND_FORM_URL = 'https://28.javascript.pages.academy/kekstagra';
+const SEND_FORM_URL = 'https://28.javascript.pages.academy/kekstagram';
 
-const getData = (onSuccess, onError) => {
-  fetch(GET_FORM_URL)
+const Method = {
+  GET: 'GET',
+  POST: 'POST',
+};
+
+const load = (url, method = Method.GET, body = null) =>
+  fetch(url, {method, body})
     .then((response) => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        // onError();
+      if (!response.ok) {
         throw new Error();
       }
-    })
-    .then((data) => {
-      onSuccess(data);
+      return response.json();
     })
     .catch(() => {
-      onError();
+      throw new Error();
     });
-};
 
-const sendData = (data, onSuccess, closePopup, onError) => {
-  fetch(SEND_FORM_URL, {
-    method: 'POST',
-    body: data,
-  })
-    .then((response) => {
-      if (response.ok) {
-        onSuccess();
-        closePopup();
-      } else {
-        throw new Error();
-      }
-    })
-    .catch(() => onError());
-};
+const getData = () => load(GET_FORM_URL);
+
+const sendData = (body) => load(SEND_FORM_URL, Method.POST, body);
 
 export {
   sendData,

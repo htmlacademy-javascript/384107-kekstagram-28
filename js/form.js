@@ -2,7 +2,7 @@ import { isEscapeKey, stopEventPropagation } from './util.js';
 import { removeScale } from './scale.js';
 import { removeEffects } from './slider.js';
 import { sendData } from './api.js';
-import { showErrorMessage, showSuccessMessage } from './message.js';
+import { showFormPopup, errorMessage, successMessage } from './message.js';
 
 
 const HASHTAG_REGULAR_EXPRESS = /^#[a-zа-яё0-9]{1,19}$/i;
@@ -15,6 +15,7 @@ const commentField = form.querySelector('.text__description');
 const loadPhotoButton = document.querySelector('#upload-file');
 const imgUploadOverlay = document.querySelector('.img-upload__overlay');
 const closeOverlayButton = form.querySelector('.img-upload__cancel');
+const submitButton = form.querySelector('.img-upload__submit');
 
 const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
@@ -49,13 +50,15 @@ const closeImgUploadOverlay = () => {
   removeEffects();
 };
 
-const onDocumentKeydown = (evt) => {
+function onDocumentKeydown (evt) {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    closeImgUploadOverlay();
-    document.removeEventListener('keydown', onDocumentKeydown);
+    if (document.querySelector('.error') === null) {
+      closeImgUploadOverlay();
+      document.removeEventListener('keydown', onDocumentKeydown);
+    }
   }
-};
+}
 
 const showImgUploadOverlay = () => {
   imgUploadOverlay.classList.remove('hidden');
@@ -63,19 +66,37 @@ const showImgUploadOverlay = () => {
   document.addEventListener('keydown', onDocumentKeydown);
 };
 
-const setUserFormSubmit = () => {
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+};
+
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+};
+
+const setUserFormSubmit = (onSuccess) => {
   form.addEventListener('submit', (evt) => {
     evt.preventDefault();
-
     const isValid = pristine.validate();
+
     if (isValid) {
-      const formData = new FormData(evt.target);
-      sendData(formData, closeImgUploadOverlay, showSuccessMessage, showErrorMessage);
+      blockSubmitButton();
+      sendData(new FormData(evt.target))
+        .then(onSuccess)
+        .then(() => {
+          showFormPopup(successMessage);
+        })
+        .catch(
+          () => {
+            showFormPopup(errorMessage);
+          }
+        )
+        .finally(unblockSubmitButton);
     }
   });
 };
 
-setUserFormSubmit();
+setUserFormSubmit(closeImgUploadOverlay);
 hashtagField.addEventListener('keydown', stopEventPropagation);
 commentField.addEventListener('keydown', stopEventPropagation);
 loadPhotoButton.addEventListener('change', showImgUploadOverlay);
