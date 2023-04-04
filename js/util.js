@@ -48,5 +48,5 @@ export {
   uniqValue,
   getRandomElement,
   isEscapeKey,
-  stopEventPropagation
+  stopEventPropagation,
 };

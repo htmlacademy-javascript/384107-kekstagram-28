@@ -1,6 +1,9 @@
 import { isEscapeKey, stopEventPropagation } from './util.js';
 import { removeScale } from './scale.js';
 import { removeEffects } from './slider.js';
+import { sendData } from './api.js';
+import { showErrorMessage, showSuccessMessage } from './message.js';
+
 
 const HASHTAG_REGULAR_EXPRESS = /^#[a-zа-яё0-9]{1,19}$/i;
 const MAX_HASHTAGS_COUNT = 5;
@@ -37,11 +40,6 @@ const validateHashtags = (value) => {
 
 pristine.addValidator(hashtagField, validateHashtags, ERROR_TEXT);
 
-form.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  pristine.validate();
-});
-
 const closeImgUploadOverlay = () => {
   imgUploadOverlay.classList.add('hidden');
   document.body.classList.remove('modal-open');
@@ -65,6 +63,19 @@ const showImgUploadOverlay = () => {
   document.addEventListener('keydown', onDocumentKeydown);
 };
 
+const setUserFormSubmit = () => {
+  form.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    const isValid = pristine.validate();
+    if (isValid) {
+      const formData = new FormData(evt.target);
+      sendData(formData, closeImgUploadOverlay, showSuccessMessage, showErrorMessage);
+    }
+  });
+};
+
+setUserFormSubmit();
 hashtagField.addEventListener('keydown', stopEventPropagation);
 commentField.addEventListener('keydown', stopEventPropagation);
 loadPhotoButton.addEventListener('change', showImgUploadOverlay);
