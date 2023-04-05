@@ -1,8 +1,17 @@
-import {renderThumbnails} from './thumbnails.js';
-import { createPhotos } from './data.js';
 import './form.js';
 import './scale.js';
 import './slider.js';
+import { showErrorText} from './message.js';
+import {getData} from './api.js';
+import {renderThumbnails} from './thumbnails.js';
 
-const photos = createPhotos();
-renderThumbnails(photos);
+
+getData()
+  .then((data) => {
+    renderThumbnails(data);
+  })
+  .catch(
+    () => {
+      showErrorText();
+    }
+  );

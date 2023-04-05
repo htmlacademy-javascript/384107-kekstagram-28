@@ -228,6 +228,13 @@
     </section>
   </template>
 
+  <!-- Сообщение об успешной загрузке изображения -->
+  <template id="error-message">
+    <div class="error-message">
+        <h2 class="success__title">Данные не загрузились. Попробуйте обновить страницу.</h2>
+    </div>
+  </template>
+
   <!-- Экран загрузки изображения -->
   <template id="messages">
     <div class="img-upload__message  img-upload__message--loading">Загружаем...</div>
@@ -242,6 +249,7 @@
       </li>
     </ul>
   </template>
+  
   <script src="vendor/pristine/pristine.min.js"></script>
   <script src="vendor/nouislider/nouislider.js"></script>
   <script src="js/main.js" type="module"></script>
