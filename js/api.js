@@ -1,4 +1,3 @@
-
 const GET_FORM_URL = 'https://28.javascript.pages.academy/kekstagram/data';
 const SEND_FORM_URL = 'https://28.javascript.pages.academy/kekstagram';
 

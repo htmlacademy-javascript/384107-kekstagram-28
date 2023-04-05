@@ -2,7 +2,7 @@ import { isEscapeKey, stopEventPropagation } from './util.js';
 import { removeScale } from './scale.js';
 import { removeEffects } from './slider.js';
 import { sendData } from './api.js';
-import { showFormPopup, errorMessage, successMessage } from './message.js';
+import { showFormPopup, errorMessage, successMessage, onOutsideClick } from './message.js';
 
 
 const HASHTAG_REGULAR_EXPRESS = /^#[a-zа-яё0-9]{1,19}$/i;
@@ -48,6 +48,8 @@ const closeImgUploadOverlay = () => {
   pristine.reset();
   removeScale();
   removeEffects();
+  document.removeEventListener('keydown', onDocumentKeydown);
+  document.removeEventListener('click', onOutsideClick);
 };
 
 function onDocumentKeydown (evt) {
@@ -55,7 +57,6 @@ function onDocumentKeydown (evt) {
     evt.preventDefault();
     if (document.querySelector('.error') === null) {
       closeImgUploadOverlay();
-      document.removeEventListener('keydown', onDocumentKeydown);
     }
   }
 }
@@ -101,3 +102,4 @@ hashtagField.addEventListener('keydown', stopEventPropagation);
 commentField.addEventListener('keydown', stopEventPropagation);
 loadPhotoButton.addEventListener('change', showImgUploadOverlay);
 closeOverlayButton.addEventListener('click', closeImgUploadOverlay);
+

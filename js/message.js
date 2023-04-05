@@ -12,18 +12,25 @@ const errorAlert = document.querySelector('#error-message')
   .content
   .querySelector('.error-message');
 
-const closeMessage = (popup, button) => {
-  button.addEventListener('click', () => {
-    popup.remove();
-  });
+const closePopup = () => {
+  const popup = document.querySelector('.error, .success');
+  popup.remove();
   document.removeEventListener('keydown', onDocumentKeydown);
 };
 
 function onDocumentKeydown (evt) {
   if(isEscapeKey(evt)) {
     evt.preventDefault();
-    closeMessage();
+    closePopup();
   }
+}
+
+function onOutsideClick (evt) {
+  const popup = document.querySelector('.error, .success');
+  if (evt.target === popup) {
+    closePopup();
+  }
+  document.removeEventListener('click', onOutsideClick);
 }
 
 const createElement = (element) => {
@@ -34,11 +41,10 @@ const createElement = (element) => {
 const showFormPopup = (element) => {
   createElement(element);
   document.addEventListener('keydown', onDocumentKeydown);
+  document.addEventListener('click', onOutsideClick);
 
-  const popup = document.querySelector('.error, .success');
   const popupButton = document.querySelector('.error__button, .success__button');
-
-  closeMessage(popup, popupButton);
+  popupButton.addEventListener('click', closePopup);
 };
 
 const showErrorText = () => {
@@ -50,4 +56,4 @@ const showErrorText = () => {
   }, 5000);
 };
 
-export { showErrorText, showFormPopup, errorMessage, successMessage};
+export { showErrorText, showFormPopup, errorMessage, successMessage, onOutsideClick};
