@@ -102,4 +102,3 @@ hashtagField.addEventListener('keydown', stopEventPropagation);
 commentField.addEventListener('keydown', stopEventPropagation);
 loadPhotoButton.addEventListener('change', showImgUploadOverlay);
 closeOverlayButton.addEventListener('click', closeImgUploadOverlay);
-
