@@ -8,14 +8,27 @@ import { showFormPopup, errorMessage, successMessage, onOutsideClick } from './m
 const HASHTAG_REGULAR_EXPRESS = /^#[a-zа-яё0-9]{1,19}$/i;
 const MAX_HASHTAGS_COUNT = 5;
 const ERROR_TEXT = 'Введите не более 5 хештегов. Каждый должен начинаться с символа # и может содержать буквы или числа.';
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
 const form = document.querySelector('.img-upload__form');
 const hashtagField = form.querySelector('.text__hashtags');
 const commentField = form.querySelector('.text__description');
 const loadPhotoButton = document.querySelector('#upload-file');
+const preview = document.querySelector('.img-upload__preview img');
 const imgUploadOverlay = document.querySelector('.img-upload__overlay');
 const closeOverlayButton = form.querySelector('.img-upload__cancel');
 const submitButton = form.querySelector('.img-upload__submit');
+
+loadPhotoButton.addEventListener('change', () => {
+  const file = loadPhotoButton.files[0];
+  const fileName = file.name.toLowerCase();
+
+  const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+
+  if (matches) {
+    preview.src = URL.createObjectURL(file);
+  }
+});
 
 const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
