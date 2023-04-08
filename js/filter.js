@@ -1,4 +1,5 @@
 import { renderThumbnails } from './thumbnails.js';
+import { sortRandomly } from './util.js';
 const PHOTO_COUNT = 10;
 const RERENDER_DELAY = 500;
 
@@ -13,8 +14,6 @@ const debounce = (callback, timeoutDelay) => {
 };
 
 filterContainer.classList.remove('img-filters--inactive');
-
-const sortRandomly = () => Math.random() - 0.5;
 
 const sortByComments = (photoA, photoB) => photoB.comments.length - photoA.comments.length;
 

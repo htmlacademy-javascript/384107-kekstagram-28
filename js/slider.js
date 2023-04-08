@@ -92,7 +92,7 @@ const changeEffect = () => {
 };
 
 effectButtonsList.addEventListener('click',(evt) => {
-  if(evt.target.closest('.effects__radio')) {
+  if (evt.target.closest('.effects__radio')) {
     chosenEffect = Effects[evt.target.value];
     image.className = `effects__preview--${chosenEffect.name}`;
     changeEffect();
@@ -101,7 +101,7 @@ effectButtonsList.addEventListener('click',(evt) => {
 
 const onSliderChange = () => {
   const sliderValue = sliderElement.noUiSlider.get();
-  if(chosenEffect === defaultEffect) {
+  if (chosenEffect === defaultEffect) {
     image.style.filter = 'none';
   } else {
     image.style.filter = `${chosenEffect.style}(${sliderValue}${chosenEffect.unit})`;
@@ -117,4 +117,3 @@ const removeEffects = () => {
 };
 
 export { removeEffects };
-

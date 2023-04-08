@@ -17,14 +17,14 @@ const resizePhoto = () => {
 };
 
 controlSmaller.addEventListener('click', () => {
-  if(startScaleValue !== MIN_SCALE) {
+  if (startScaleValue !== MIN_SCALE) {
     startScaleValue -= STEP_SCALE;
   }
   resizePhoto(controlBigger);
 });
 
 controlBigger.addEventListener('click', () => {
-  if(startScaleValue !== MAX_SCALE) {
+  if (startScaleValue !== MAX_SCALE) {
     startScaleValue += STEP_SCALE;
   }
   resizePhoto(controlSmaller);
