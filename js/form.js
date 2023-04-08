@@ -4,7 +4,6 @@ import { removeEffects } from './slider.js';
 import { sendData } from './api.js';
 import { showFormPopup, errorMessage, successMessage, onOutsideClick } from './message.js';
 
-
 const HASHTAG_REGULAR_EXPRESS = /^#[a-zа-яё0-9]{1,19}$/i;
 const MAX_HASHTAGS_COUNT = 5;
 const ERROR_TEXT = 'Введите не более 5 хештегов. Каждый должен начинаться с символа # и может содержать буквы или числа.';

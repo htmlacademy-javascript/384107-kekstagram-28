@@ -1,4 +1,6 @@
-import {isEscapeKey} from './util.js';
+import { isEscapeKey } from './util.js';
+
+const SHOW_MESSAGE_TIME = 5000;
 
 const errorMessage = document.querySelector('#error')
   .content
@@ -53,7 +55,13 @@ const showErrorText = () => {
 
   setTimeout(() => {
     alertContainer.remove();
-  }, 5000);
+  }, SHOW_MESSAGE_TIME);
 };
 
-export { showErrorText, showFormPopup, errorMessage, successMessage, onOutsideClick};
+export {
+  showErrorText,
+  showFormPopup,
+  errorMessage,
+  successMessage,
+  onOutsideClick
+};
