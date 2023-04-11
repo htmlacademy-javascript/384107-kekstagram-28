@@ -18,6 +18,7 @@ const closePopup = () => {
   const popup = document.querySelector('.error, .success');
   popup.remove();
   document.removeEventListener('keydown', onDocumentKeydown);
+  document.removeEventListener('click', onOutsideClick);
 };
 
 function onDocumentKeydown (evt) {
@@ -32,7 +33,6 @@ function onOutsideClick (evt) {
   if (evt.target === popup) {
     closePopup();
   }
-  document.removeEventListener('click', onOutsideClick);
 }
 
 const createElement = (element) => {
@@ -46,7 +46,7 @@ const showFormPopup = (element) => {
   document.addEventListener('click', onOutsideClick);
 
   const popupButton = document.querySelector('.error__button, .success__button');
-  popupButton.addEventListener('click', closePopup);
+  popupButton.addEventListener('click', () => closePopup());
 };
 
 const showErrorText = () => {
