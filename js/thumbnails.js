@@ -19,12 +19,16 @@ const createElement = ({url, comments, likes, id}) => {
   return pictureClone;
 };
 
-const renderThumbnails = (photos) => {
-  const similarThumbnails = document.createDocumentFragment();
+const removePicture = () => {
   const pictures = document.querySelectorAll('.picture');
   pictures.forEach((element) => {
     element.remove();
   });
+};
+
+const renderThumbnails = (photos) => {
+  const similarThumbnails = document.createDocumentFragment();
+  removePicture();
 
   photos.forEach((element) => {
     const thumbnail = createElement(element);

@@ -79,12 +79,8 @@ const showImgUploadOverlay = () => {
   document.addEventListener('keydown', onDocumentKeydown);
 };
 
-const blockSubmitButton = () => {
-  submitButton.disabled = true;
-};
-
-const unblockSubmitButton = () => {
-  submitButton.disabled = false;
+const setSubmitButtonStatus = (isDisabled) => {
+  submitButton.disabled = isDisabled;
 };
 
 const setUserFormSubmit = (onSuccess) => {
@@ -93,7 +89,7 @@ const setUserFormSubmit = (onSuccess) => {
     const isValid = pristine.validate();
 
     if (isValid) {
-      blockSubmitButton();
+      setSubmitButtonStatus(true);
       sendData(new FormData(evt.target))
         .then(onSuccess)
         .then(() => {
@@ -104,13 +100,14 @@ const setUserFormSubmit = (onSuccess) => {
             showFormPopup(errorMessage);
           }
         )
-        .finally(unblockSubmitButton);
+        .finally(setSubmitButtonStatus);
     }
   });
 };
 
 setUserFormSubmit(closeImgUploadOverlay);
-hashtagField.addEventListener('keydown', stopEventPropagation);
-commentField.addEventListener('keydown', stopEventPropagation);
-loadPhotoButton.addEventListener('change', showImgUploadOverlay);
-closeOverlayButton.addEventListener('click', closeImgUploadOverlay);
+
+hashtagField.addEventListener('keydown', () => stopEventPropagation());
+commentField.addEventListener('keydown', () => stopEventPropagation());
+loadPhotoButton.addEventListener('change', () => showImgUploadOverlay());
+closeOverlayButton.addEventListener('click', () => closeImgUploadOverlay());

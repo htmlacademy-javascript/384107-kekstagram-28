@@ -57,6 +57,6 @@ const renderFullPhoto = (url, likes, comments) => {
   renderFiveComments();
 };
 
-commentsLoader.addEventListener('click', renderFiveComments);
+commentsLoader.addEventListener('click', () => renderFiveComments());
 
 export { renderFullPhoto };

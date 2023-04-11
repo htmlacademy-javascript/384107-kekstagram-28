@@ -56,12 +56,13 @@ const Effects = {
 };
 
 const defaultEffect = Effects.none;
-let chosenEffect = Effects.none;
 const sliderContainer = document.querySelector('.img-upload__effect-level');
 const sliderElement = document.querySelector('.effect-level__slider');
 const image = document.querySelector('.img-upload__preview img');
 const effectButtonsList = document.querySelector('.effects__list');
 const effectsValue = document.querySelector('.effect-level__value');
+
+let chosenEffect = Effects.none;
 
 const showSlider = () => sliderContainer.classList.remove('hidden');
 const hideSlider = () => sliderContainer.classList.add('hidden');
